@@ -1,0 +1,333 @@
+/* ========== 1) المتغيرات (CSS Variables) ========== */
+:root {
+  --bg: #faf6ee;
+  --surface: #ffffff;
+  --text: #1c1a17;
+  --muted: #6d665b;
+  --gold: #b8892d;
+  --gold-soft: #d9b45a;
+  --line: rgba(184,137,45,.35);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e0d0b; --surface: #181613; --text: #f3ead8; --muted: #a79e8c;
+    --gold: #d9b45a; --gold-soft: #f0d68a; --line: rgba(217,180,90,.3);
+  }
+}
+
+/* ========== 2) إعادة الضبط (Reset) ========== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Cairo", sans-serif;
+  line-height: 1.8;
+}
+a { color: inherit; text-decoration: none; }
+h1, h2, h3 { font-family: "Playfair Display", "Cairo", serif; line-height: 1.3; }
+
+/* ========== 3) الهيدر (Flexbox + Sticky) ========== */
+header {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 6%;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.logo { font-family: "Playfair Display", serif; font-size: 1.5rem; color: var(--gold); letter-spacing: 3px; }
+nav { display: flex; gap: 22px; }
+nav a { font-size: .95rem; position: relative; }
+nav a::after {
+  content: ""; position: absolute; bottom: -4px; right: 0;
+  width: 0; height: 2px; background: var(--gold); transition: width .3s;
+}
+nav a:hover::after { width: 100%; }
+
+/* ========== 4) قسم البداية (Hero) ========== */
+.hero {
+  min-height: 78vh;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center; padding: 60px 6%;
+  color: #f3ead8;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(217,180,90,.25), transparent 45%),
+    radial-gradient(circle at 80% 80%, rgba(217,180,90,.15), transparent 40%),
+    linear-gradient(135deg, #0e0d0b, #231d12);
+}
+.hero small { color: #d9b45a; letter-spacing: 6px; font-size: .85rem; animation: fadeUp 1s both; }
+.hero h1 { font-size: clamp(2.2rem, 8vw, 4.5rem); margin: 14px 0; animation: fadeUp 1s .2s both; }
+.hero h1 span { color: #d9b45a; font-style: italic; }
+.hero p { max-width: 520px; color: #cfc4ad; animation: fadeUp 1s .4s both; }
+.btn {
+  display: inline-block; margin-top: 28px; padding: 12px 34px;
+  border: 1px solid #d9b45a; color: #d9b45a; border-radius: 50px;
+  transition: .3s; animation: fadeUp 1s .6s both;
+}
+.btn:hover { background: #d9b45a; color: #0e0d0b; transform: translateY(-3px); box-shadow: 0 10px 25px rgba(217,180,90,.35); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== 5) الأقسام العامة ========== */
+section { padding: 70px 6%; }
+.title { text-align: center; margin-bottom: 40px; }
+.title h2 { font-size: 2rem; color: var(--gold); }
+.title .line { width: 70px; height: 2px; background: var(--gold); margin: 10px auto 0; }
+
+/* ========== 6) من نحن (Grid) ========== */
+.about { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; max-width: 1000px; margin: auto; }
+.about .art {
+  height: 280px; border-radius: 160px 160px 12px 12px;
+  background: linear-gradient(160deg, var(--gold-soft), var(--gold) 55%, #5a3f10);
+  box-shadow: 0 20px 40px rgba(0,0,0,.2);
+}
+.about p { color: var(--muted); }
+
+/* ========== 7) الخدمات (Grid + كروت) ========== */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px; max-width: 1000px; margin: auto; }
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+  padding: 30px 24px; text-align: center; transition: .35s;
+}
+.card:hover { transform: translateY(-8px); box-shadow: 0 18px 35px rgba(0,0,0,.15); border-color: var(--gold); }
+.card .icon {
+  width: 60px; height: 60px; margin: 0 auto 14px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 1.6rem;
+  background: linear-gradient(135deg, var(--gold-soft), var(--gold)); color: #fff;
+}
+.card h3 { font-size: 1.2rem; margin-bottom: 6px; }
+.card p { color: var(--muted); font-size: .92rem; }
+
+/* ========== 8) الاقتباس ========== */
+.quote { text-align: center; background: var(--surface); border-block: 1px solid var(--line); }
+.quote blockquote { max-width: 650px; margin: auto; font-size: 1.4rem; font-family: "Playfair Display", "Cairo", serif; }
+.quote cite { display: block; margin-top: 12px; color: var(--gold); font-size: .95rem; font-style: normal; }
+
+/* ========== 9) التواصل (Form) ========== */
+.contact { max-width: 520px; margin: auto; display: flex; flex-direction: column; gap: 14px; }
+.contact input, .contact textarea {
+  width: 100%; padding: 14px 16px; font: inherit; color: var(--text);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px; outline: none; transition: .3s;
+}
+.contact input:focus, .contact textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px var(--line); }
+.contact button {
+  padding: 14px; font: inherit; font-weight: 700; cursor: pointer; border: 0; border-radius: 50px;
+  color: #0e0d0b; background: linear-gradient(135deg, var(--gold-soft), var(--gold)); transition: .3s;
+}
+.contact button:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(184,137,45,.4); }
+
+/* ========== 10) الفوتر ========== */
+footer { text-align: center; padding: 30px 6%; color: var(--muted); font-size: .85rem; border-top: 1px solid var(--line); }
+
+/* ========== 11) موبايل (Media Query) ========== */
+@media (max-width: 700px) {
+  nav { gap: 12px; }
+  nav a { font-size: .8rem; }
+  .about { grid-template-columns: 1fr; }
+  .about .art { height: 200px; }
+}
+/* ========== 14) لمسات حيوية واحترافية ========== */
+
+/* لون تحديد النص */
+::selection { background: var(--gold); color: #0e0d0b; }
+
+/* سكرول بار أنيق */
+html { scrollbar-color: var(--gold) var(--bg); scrollbar-width: thin; }
+
+/* هيدر زجاجي */
+header {
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* كلمة "تليق" تلمع */
+.hero h1 span {
+  background: linear-gradient(90deg, #b8892d, #f7e3a1, #b8892d);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 4s linear infinite;
+}
+@keyframes shine { to { background-position: 200% center; } }
+
+/* أيقونات الخدمات */
+.card .icon { transition: .4s; }
+.card:hover .icon { transform: rotate(12deg) scale(1.12); }
+
+/* شريط الإعلان */
+.topbar {
+  text-align: center;
+  padding: 8px 6%;
+  font-size: .85rem;
+  letter-spacing: 1px;
+  color: #0e0d0b;
+  background: linear-gradient(90deg, #d9b45a, #f0d68a, #d9b45a);
+}
+
+/* احترام تفضيل تقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+} /* ========== 15) آراء + هدايا + أسئلة + واتساب ========== */
+.reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px; max-width: 1000px; margin: auto; }
+.review {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 16px; padding: 26px 22px; text-align: center;
+}
+.review .stars { color: var(--gold); letter-spacing: 3px; }
+.review p { margin: 10px 0; color: var(--muted); }
+.review cite { color: var(--gold); font-style: normal; font-weight: 700; }
+
+.gift {
+  text-align: center; color: #f3ead8;
+  background: linear-gradient(135deg, #0e0d0b, #231d12);
+}
+.gift h2 { color: #d9b45a; font-size: 2rem; }
+.gift p { max-width: 480px; margin: 10px auto 0; color: #cfc4ad; }
+
+.faq { max-width: 650px; margin: auto; display: flex; flex-direction: column; gap: 12px; }
+.faq details {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 12px; padding: 14px 18px; transition: .3s;
+}
+.faq details[open] { border-color: var(--gold); }
+.faq summary { cursor: pointer; font-weight: 700; }
+.faq details p { margin-top: 10px; color: var(--muted); }
+
+.whatsapp {
+  position: fixed;
+  left: 18px;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  width: 56px; height: 56px;
+  display: grid; place-items: center;
+  font-size: 1.6rem; border-radius: 50%;
+  background: #25d366; color: #fff;
+  box-shadow: 0 10px 25px rgba(0,0,0,.3);
+  transition: .3s; z-index: 20;
+}
+.whatsapp:hover { transform: scale(1.1) translateY(-3px); }
+/* ========== 16) مميزات + تصنيفات + عروض ========== */
+.perks {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 40px;
+  padding: 22px 6%;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.perk { font-size: .95rem; color: var(--muted); }
+.perk span { color: var(--text); font-weight: 700; }
+
+.cats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 18px;
+  max-width: 1000px; margin: auto;
+}
+.cat {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: grid; place-items: center; align-content: center; gap: 6px;
+  border-radius: 16px; overflow: hidden;
+  border: 1px solid var(--line);
+  color: #fff; text-align: center;
+  transition: .35s;
+}
+.cat-icon { font-size: 2.6rem; transition: .4s; }
+.cat-name {
+  font-weight: 700; letter-spacing: 1px;
+  padding: 2px 14px; border-radius: 50px;
+  background: rgba(0,0,0,.35);
+  backdrop-filter: blur(4px);
+}
+.cat:hover { transform: translateY(-6px); box-shadow: 0 16px 30px rgba(0,0,0,.2); }
+.cat:hover .cat-icon { transform: scale(1.2) rotate(8deg); }
+
+.offer {
+  text-align: center; color: #f3ead8;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(217,180,90,.3), transparent 45%),
+    linear-gradient(135deg, #231d12, #0e0d0b);
+}
+.offer small { color: #d9b45a; letter-spacing: 6px; }
+.offer h2 { font-size: clamp(1.6rem, 6vw, 2.6rem); margin: 8px 0; }
+.offer h2 span { color: #d9b45a; font-style: italic; }
+.offer p { color: #cfc4ad; }
+/* ========== 18) اشتراك + فوتر بأعمدة + زر للأعلى ========== */
+.newsletter {
+  text-align: center;
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+}
+.newsletter h2 { color: var(--gold); font-size: 1.8rem; }
+.newsletter p { color: var(--muted); margin: 8px 0 20px; }
+.news-form {
+  display: flex; gap: 10px;
+  max-width: 460px; margin: auto;
+}
+.news-form input {
+  flex: 1; min-width: 0;
+  padding: 12px 18px; font: inherit; color: var(--text);
+  background: var(--bg); border: 1px solid var(--line);
+  border-radius: 50px; outline: none; transition: .3s;
+}
+.news-form input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px var(--line); }
+.news-form button {
+  padding: 12px 24px; font: inherit; font-weight: 700; cursor: pointer;
+  border: 0; border-radius: 50px; color: #0e0d0b;
+  background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+  transition: .3s;
+}
+.news-form button:hover { transform: translateY(-3px); }
+
+.footer-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  max-width: 1000px; margin: auto;
+}
+.footer-cols h3 { margin-bottom: 10px; font-size: 1.1rem; }
+.footer-cols p { color: var(--muted); }
+.footer-cols a { display: block; color: var(--muted); padding: 3px 0; transition: .3s; }
+.footer-cols a:hover { color: var(--gold); transform: translateX(-4px); }
+
+.to-top {
+  position: fixed;
+  right: 18px;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  width: 46px; height: 46px;
+  display: grid; place-items: center;
+  font-size: 1.3rem; border-radius: 50%;
+  color: #0e0d0b;
+  background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+  transition: .3s; z-index: 20;
+}
+.to-top:hover { transform: translateY(-4px); }
+/* ========== 19) طرق الدفع ========== */
+.pay-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 20px;
+  max-width: 1000px; margin: auto;
+}
+.pay {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 26px 20px;
+  text-align: center;
+  transition: .35s;
+}
+.pay:hover { transform: translateY(-6px); border-color: var(--gold); box-shadow: 0 16px 30px rgba(0,0,0,.15); }
+.pay-icon {
+  width: 56px; height: 56px; margin: 0 auto 12px;
+  display: grid; place-items: center;
+  font-size: 1.6rem; border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+}
+.pay h3 { font-size: 1.05rem; margin-bottom: 6px; }
+.pay p { color: var(--muted); font-size: .9rem; }
+.pay-note { text-align: center; margin-top: 24px; color: var(--muted); font-size: .9rem; }
